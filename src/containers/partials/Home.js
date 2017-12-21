@@ -16,7 +16,45 @@ import { connect } from 'react-redux';
 import { Grid, Row, Col } from "react-native-easy-grid";
 
 import HeaderLayout from './Header';
-import CartHome from './cart/CartHome';
+import CartHome from './CartHome';
+
+
+class Home extends React.Component {
+	constructor() {
+		super();
+		const ds = new ListView.DataSource({ rowHasChanged: (r1, r2, r3, r4) => r1 !== r2 && r2 !== r3 && r3 !== r4 });
+		this.state = {
+			dataSource: ds.cloneWithRows(datas),
+		};
+	}
+
+	openMenu() {
+		const { open } = this.props;
+		open();
+	}
+
+	render() {
+		const { logout, loginScreen, isLoggedIn } = this.props;
+		return (
+			<Container style={styles.container}>
+				<HeaderLayout onOpen={this.openMenu.bind(this)} />
+				<Grid style={{ margin: 20 }}>
+					<Col size={75} style={{ marginRight: 20, borderColor: "gray", borderWidth: 1 }}>
+						<View>
+							<ListView contentContainerStyle={styles.list}
+								dataSource={this.state.dataSource}
+								renderRow={(rowData) => <Text style={styles.item}>{rowData.name}</Text>}
+							/>
+						</View>
+					</Col>
+					<Col size={25} style={{ borderColor: "gray", borderWidth: 1 }}>
+						<CartHome />
+					</Col>
+				</Grid>
+			</Container>
+		);
+	}
+}
 
 const styles = StyleSheet.create({
 	container: {
@@ -197,51 +235,5 @@ const datas = [
 	}
 ];
 
-class Home extends React.Component {
-	constructor() {
-		super();
-		const ds = new ListView.DataSource({ rowHasChanged: (r1, r2, r3, r4) => r1 !== r2 && r2 !== r3 && r3 !== r4 });
-		this.state = {
-			dataSource: ds.cloneWithRows(datas),
-		};
-	}
 
-	openMenu() {
-		const { open } = this.props;
-		open();
-	}
-
-	render() {
-		const { logout, loginScreen, isLoggedIn } = this.props;
-		return (
-			<Container style={styles.container}>
-				<HeaderLayout onOpen={this.openMenu.bind(this)} />
-				<Grid style={{ margin: 20 }}>
-					<Col size={75} style={{ marginRight: 20, borderColor: "gray", borderWidth: 1 }}>
-						<View>
-							<ListView contentContainerStyle={styles.list}
-								dataSource={this.state.dataSource}
-								renderRow={(rowData) => <Text style={styles.item}>{rowData.name}</Text>}
-							/>
-						</View>
-					</Col>
-					<Col size={25} style={{ borderColor: "gray", borderWidth: 1 }}>
-						<CartHome />
-					</Col>
-				</Grid>
-			</Container>
-		);
-	}
-}
-
-const mapStateToProps = state => ({
-	isLoggedIn: state.auth.isLoggedIn,
-});
-
-const mapDispatchToProps = dispatch => ({
-	logout: () => dispatch({ type: 'Logout' }),
-	loginScreen: () =>
-		dispatch(NavigationActions.navigate({ routeName: 'Login' })),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;
