@@ -1,6 +1,7 @@
 import React from 'react';
 import { Scene, Router, Stack, Actions, Modal } from 'react-native-router-flux';
 import MainContainer from './containers/MainContainer';
+import LoginContainer from './containers/LoginContainer';
 
 const RouterComponent = () => {
     return (
@@ -11,8 +12,11 @@ const RouterComponent = () => {
                         key={"home"}
                         component={MainContainer}
                         hideNavBar={"true"}
-                        initial
-                    />
+                        initial />
+                    <Scene
+                        key="login_screen"
+                        component={LoginContainer}
+                        title="Login" />
                 </Stack>
             </Stack>
         </Router>
@@ -20,9 +24,3 @@ const RouterComponent = () => {
 }
 
 export default RouterComponent;
-// const mapStateToProps = (state) => {
-//     return {
-//         auth: state.auth
-//     };
-// };
-// export default connect(mapStateToProps)(RouterRoot);
