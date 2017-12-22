@@ -1,4 +1,4 @@
-export * from './LoginActions'
+export * from './AuthenAction'
 
 export const dispatch = (type, payload) => {
 	return {
