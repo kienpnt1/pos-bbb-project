@@ -7,6 +7,10 @@ import {connect} from 'react-redux';
 import {loginFormChange, login} from '../actions/index';
 
 class LoginScreen extends React.Component {
+	constructor(props){
+		super(props);		
+	}
+
 	componentWillUnmount() {
 		this.props.loginFormDelete();
 	}
@@ -57,9 +61,6 @@ class LoginScreen extends React.Component {
 					             loading={this.props.logining || false}
 					             disabled={this.props.logining || false}
 					>Sign in</LoginButton>
-					{/* <TouchableOpacity style={bigButton} onPress={() => navigation.dispatch({ type: 'Login' })}>
-							<Text style={buttonText}>SIGN IN NOW</Text>
-						</TouchableOpacity> */}
 				</View>
 			</KeyboardAvoidingView>
 			</View>

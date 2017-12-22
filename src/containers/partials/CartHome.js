@@ -7,7 +7,7 @@ import {
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import DividerLine from '../common/DividerLine';
+import DividerLine from '../../components/common/DividerLine';
 
 const iconUser = require("../../media/appIcon/contact.png");
 const iconCartPoduct = require("../../media/appIcon/cart0.png");
